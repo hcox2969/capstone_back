@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, jsonify, g
 from flask_cors import CORS
 from resources.walks import walk
 from flask_login import LoginManager
@@ -30,8 +30,8 @@ def load_user(userid):
     except models.DoesNotExist:
         return None
 
-CORS(walk, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(walk, origins=['http://localhost:3000', 'https://outdoor-walks.herokuapp.com'], supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', 'https://outdoor-walks.herokuapp.com'], supports_credentials=True)
 
 
 app.register_blueprint(user, url_prefix='/api/v1/users')
@@ -59,6 +59,12 @@ CORS(walk, origins=['http://localhost:3000'], supports_credentials=True)
 @app.route('/')
 def index():
     return 'hi'
+
+# ADD THESE THREE LINES -- because we need to initialize the
+# tables in production too!
+if 'ON_HEROKU' in os.environ:
+  print('\non heroku!')
+  models.initialize()
 
 # Run the app when the program starts!
 if __name__ == '__main__':
