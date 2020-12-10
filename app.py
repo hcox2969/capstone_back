@@ -1,20 +1,23 @@
+import os
+import models
 from flask import Flask, jsonify, g
 from flask_cors import CORS
 from resources.walks import walk
-from flask_login import LoginManager
-import os
 from resources.users import user
-import models
+from flask_login import LoginManager
 
 DEBUG = True
 PORT = 8000
 
-
+login_manager = LoginManager()
+# sets up the ability to set up the session
 # Initialize an instance of the Flask class.
 # This starts the website!
 app = Flask(__name__)
-login_manager = LoginManager()
-# sets up the ability to set up the session
+
+if 'ON_HEROKU' in os.environ:
+    app.config.update( SESSION_COOKIE_SECURE=True, SESSION_COOKIE_SAMESITE='None' )
+
 app.secret_key = "LJAKLJLKJJLJKLSDJLKJASD" # Need this to encode the session
 
 login_manager.init_app(app) # set up the sessions on the app

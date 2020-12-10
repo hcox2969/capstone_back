@@ -1,8 +1,9 @@
+import os
 from peewee import *
 import datetime
 from flask_login import UserMixin
 from playhouse.db_url import connect
-import os
+
 
 if 'ON_HEROKU' in os.environ: # later we will manually add this env var
                               # in heroku so we can write this code
