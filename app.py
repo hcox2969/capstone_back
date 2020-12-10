@@ -15,8 +15,9 @@ login_manager = LoginManager()
 # This starts the website!
 app = Flask(__name__)
 
-# if 'ON_HEROKU' in os.environ:
-#     app.config.update( SESSION_COOKIE_SECURE=True, SESSION_COOKIE_SAMESITE='None' )
+if "ON_HEROKU" in os.environ:
+    app.config["SESSION_COOKIE_SECURE"]=True
+    app.config["SESSION_COOKIE_SAMESITE"]=None
 
 app.secret_key = "LJAKLJLKJJLJKLSDJLKJASD" # Need this to encode the session
 
@@ -72,3 +73,4 @@ if 'ON_HEROKU' in os.environ:
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=DEBUG, port=PORT)
+print("hello")
