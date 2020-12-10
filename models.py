@@ -11,7 +11,7 @@ if 'ON_HEROKU' in os.environ: # later we will manually add this env var
                                                      # when you provision the
                                                      # Heroku Postgres Add-on
 else:
-  DATABASE = SqliteDatabase('dogs.sqlite')
+  DATABASE = SqliteDatabase('walks.sqlite')
 
 
 class User(UserMixin, Model):
