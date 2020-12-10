@@ -21,11 +21,11 @@ login_manager.init_app(app) # set up the sessions on the app
 
 @login_manager.user_loader # decorator function, that will load the user object whenever we access the session, we can get the user
 # by importing current_user from the flask_login
-def load_user(userid):
+def load_user(user_id):
     try:
         # print('loading the following user')
-        # user = models.User.get_by_id(user_id) # Important Change
-        return models.User.get(models.User.id == userid)
+        user = models.User.get_by_id(user_id) # Important Change
+        # return models.User.get(models.User.id == userid)
         return user
     except models.DoesNotExist:
         return None
@@ -50,10 +50,6 @@ def after_request(response):
     """Close the database connection after each request."""
     g.db.close()
     return response
-
-CORS(walk, origins=['http://localhost:3000'], supports_credentials=True)
-
-
 
 # The default URL ends in / ("my-website.com/").
 @app.route('/')
