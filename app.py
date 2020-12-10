@@ -25,6 +25,9 @@ def load_user(user_id):
     try:
         # print('loading the following user')
         user = models.User.get_by_id(user_id) # Important Change
+        print(user)
+        print(user.id)
+
         # return models.User.get(models.User.id == userid)
         return user
     except models.DoesNotExist:

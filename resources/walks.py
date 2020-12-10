@@ -15,7 +15,8 @@ walk = Blueprint('walks', 'walk')
 def get_all_walks():
     ## find the walks and change each one to a dictionary into a new array
     try:
-        walks = [model_to_dict(walk) for walk in current_user.walks]
+        user = models.User.get_by_id(current_user.id)
+        walks = [model_to_dict(walk) for walk in user.walks]
 
         print(current_user)
         #print(walks)
